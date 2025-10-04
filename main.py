@@ -21,13 +21,35 @@ class MyStyleToolDialog(QtWidgets.QDialog):
 
 		self.imageLabel = QtWidgets.QLabel()
 		self.imagePixmap = QtGui.QPixmap(f"{ROOT_RESOURCE_DIR}/images/AH.png")
-		self.imageLabel.setPixmap(self.imagePixmap)
+		scaled_pixmap = self.imagePixmap.scaled(
+				QtCore.QSize(300,300),
+				QtCore.Qt.KeepAspectRatio,
+				QtCore.Qt.SmoothTransformation
+		)
+
+		self.imageLabel.setPixmap(scaled_pixmap)
+		self.imageLabel.setAlignment(QtCore.Qt.AlignCenter)
+
 		self.mainLayout.addWidget(self.imageLabel)
 
 		self.nameLayout = QtWidgets.QHBoxLayout()
 		self.mainLayout.addLayout(self.nameLayout)
 		self.nameLabel = QtWidgets.QLabel('Name:')
+		self.nameLabel.setStyleSheet(
+			'''
+			QLabel{
+				color: navy;
+			}
+			'''
+		)
 		self.nameLineEdit = QtWidgets.QLineEdit()
+		self.nameLineEdit.setStyleSheet(
+			'''
+			QLineEdit{
+				color: navy;
+			}
+			'''
+		)
 		self.nameLayout.addWidget(self.nameLabel)
 		self.nameLayout.addWidget(self.nameLineEdit)
 
@@ -67,6 +89,7 @@ class MyStyleToolDialog(QtWidgets.QDialog):
 				}
 			'''
 		)
+		self.cancelButton.clicked.connect(self.close)
 		self.buttonLayout.addWidget(self.createButton)
 		self.buttonLayout.addWidget(self.cancelButton)
 
